@@ -2,19 +2,19 @@
 {
     internal partial class Program
     {
-        private static readonly int _newYear = DateTime.Now.Year + 1;
-        private static readonly DateTime _newYearTime = new DateTime(_newYear, 1, 1);
-        private static readonly Font _numbersFont = new Font(CreateSymbols());
+        private static readonly int NewYear = DateTime.Now.Year + 1;
+        private static readonly DateTime NewYearTime = new (NewYear, 1, 1);
+        private static readonly Font NumbersFont = new (CreateSymbols());
         private static Timer _timer = null!;
 
         static Program() { }
 
-        static void Main(string[] args)
+        private static void Main()
         {
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
                 PrintLoadingAnim();
-                Console.WriteLine(_numbersFont.GetText(new Random().Next(1, 1000).ToString()));
+                Console.WriteLine(NumbersFont.GetText(new Random().Next(1, 1000).ToString()));
 
                 Thread.Sleep(300);
                 Console.Clear();
@@ -27,7 +27,7 @@
 
         private static void PrintLoadingAnim()
         {
-            Console.Write("INITAILIZATION");
+            Console.Write("INITIALIZATION");
             for (int i = 0; i < 4; i++)
             {
                 Console.Write(".");
@@ -40,18 +40,18 @@
         {
             Console.Clear();
             
-            DateTime now = DateTime.Now;
+            var now = DateTime.Now;
 
-            if (now >= _newYearTime)
+            if (now >= NewYearTime)
             {
                 await _timer.DisposeAsync();
                 OnTimerEnded();
                 return;
             }
 
-            TimeSpan remainingTime = _newYearTime - now;
+            var remainingTime = NewYearTime - now;
 
-            Console.WriteLine($"Left until the new year <{_newYear}> (Something will happen):\n");
+            Console.WriteLine($"Left until the new year <{NewYear}> (Something will happen):\n");
             try
             {
                 PrintTimer(remainingTime);
@@ -64,32 +64,32 @@
 
         private static void OnTimerEnded()
         {
-            Console.WriteLine($"С НОВЫМ ГОДОМ\n{_numbersFont.GetText(_newYear.ToString())}");
+            Console.WriteLine($"С НОВЫМ ГОДОМ\n{NumbersFont.GetText(NewYear.ToString())}");
         }
 
         private static void PrintTimer(TimeSpan remainingTime)
         {
             if (remainingTime.Days > 0)
             {
-                Console.WriteLine(_numbersFont.GetText(remainingTime.Days.ToString()));
+                Console.WriteLine(NumbersFont.GetText(remainingTime.Days.ToString()));
                 Console.WriteLine("DAYS\n");
             }
 
             if (remainingTime.Hours > 0)
             {
-                Console.WriteLine(_numbersFont.GetText(remainingTime.Hours.ToString()));
+                Console.WriteLine(NumbersFont.GetText(remainingTime.Hours.ToString()));
                 Console.WriteLine("HOURS\n");
             }
 
             if (remainingTime.Minutes > 0)
             {
-                Console.WriteLine(_numbersFont.GetText(remainingTime.Minutes.ToString()));
+                Console.WriteLine(NumbersFont.GetText(remainingTime.Minutes.ToString()));
                 Console.WriteLine("MINUTES\n");
             }
 
             if (remainingTime.Seconds > 0)
             {
-                Console.WriteLine(_numbersFont.GetText(remainingTime.Seconds.ToString()));
+                Console.WriteLine(NumbersFont.GetText(remainingTime.Seconds.ToString()));
                 Console.WriteLine("SECONDS\n");
             }
         }

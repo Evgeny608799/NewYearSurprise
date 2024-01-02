@@ -7,12 +7,12 @@ namespace NewYearSurpriseApp
         /// <summary>
         /// The dictionary of fonts symbols
         /// </summary>
-        private Dictionary<string, string> _symbols;
+        private readonly Dictionary<string, string> _symbols;
 
         /// <summary>
         /// Use the empty symbols dictionary
         /// </summary>
-        internal Font() : this(new Dictionary<string, string>()) { }
+        internal Font() : this([]) { }
 
         /// <summary>
         /// Create a font by dictionary of symbols
@@ -48,13 +48,13 @@ namespace NewYearSurpriseApp
         {
             var stringBuilder = new StringBuilder();
 
-            foreach (char c in text)
+            foreach (var c in text)
             {
-                string symbol = GetSymbol(c.ToString());
+                var symbol = GetSymbol(c.ToString());
 
                 if (stringBuilder.ToString() != "")
                 {
-                    string temp = stringBuilder.ToString();
+                    var temp = stringBuilder.ToString();
                     stringBuilder.Remove(stringBuilder.Length - temp.Length, temp.Length).Append(ConcatMultiple(temp, symbol));
                 }
                 else
@@ -80,11 +80,11 @@ namespace NewYearSurpriseApp
 
             var consolidatedLines = leftLines.Zip(rightLines);
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            foreach(var line in consolidatedLines)
+            foreach(var (first, second) in consolidatedLines)
             {
-                sb.AppendLine(line.First + line.Second);
+                sb.AppendLine(first + second);
             }
 
             sb.Remove(sb.Length - 1, 1);
